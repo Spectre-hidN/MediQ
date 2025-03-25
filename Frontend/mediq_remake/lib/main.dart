@@ -23,6 +23,6 @@ class _MainAppState extends State<MainApp> {
             theme: ThemeData.dark()
                 .copyWith(scaffoldBackgroundColor: kBackgroundColor),
             debugShowCheckedModeBanner: false,
-            home: const MainPage()));
+            home: const LoginRegisterPage()));
   }
 }

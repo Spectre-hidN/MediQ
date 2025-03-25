@@ -581,325 +581,372 @@ class _MainPageState extends State<MainPage> {
               decoration: BoxDecoration(
                   color: kUltraViolet,
                   borderRadius: BorderRadius.circular(15.0)),
-              child: Column(
-                children: [
-                  const Align(
-                      alignment: Alignment.topLeft,
-                      child: GradientAnimationText(
-                          text: Text(
-                            "MediQ",
-                            style: TextStyle(
-                                fontSize: 35.0,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: "Pacifico"),
-                          ),
-                          colors: [Color(0xFF80ed99), Color(0xFF80ffdb)],
-                          duration: Duration(seconds: 5))),
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: FutureBuilder(
-                        future: getUserData(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.active) {
-                            return const Center(
-                                child: ShimmerContainer(
-                                    height: 400, width: double.infinity));
-                          } else if (snapshot.hasData) {
-                            dp ??= MemoryImage(
-                                dataFromBase64String(snapshot.data!["userDP"]));
-                            userName ??= snapshot.data!["userName"];
-                            address ??= snapshot.data!["address"];
-                            adhaar ??= snapshot.data!["adhaar"];
-                            bloodgroup ??= snapshot.data!["bloodgroup"];
-                            phoneNumber ??= snapshot.data!["phoneNumber"];
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: ListView(
+                  children: [
+                    Column(
+                      children: [
+                        const Align(
+                            alignment: Alignment.topLeft,
+                            child: GradientAnimationText(
+                                text: Text(
+                                  "MediQ",
+                                  style: TextStyle(
+                                      fontSize: 35.0,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: "Pacifico"),
+                                ),
+                                colors: [Color(0xFF80ed99), Color(0xFF80ffdb)],
+                                duration: Duration(seconds: 5))),
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: FutureBuilder(
+                              future: getUserData(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.active) {
+                                  return const Center(
+                                      child: ShimmerContainer(
+                                          height: 400, width: double.infinity));
+                                } else if (snapshot.hasData) {
+                                  dp ??= MemoryImage(dataFromBase64String(
+                                      snapshot.data!["userDP"]));
+                                  userName ??= snapshot.data!["userName"];
+                                  address ??= snapshot.data!["address"];
+                                  adhaar ??= snapshot.data!["adhaar"];
+                                  bloodgroup ??= snapshot.data!["bloodgroup"];
+                                  phoneNumber ??= snapshot.data!["phoneNumber"];
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Spacer(),
-                                        CircleAvatar(
-                                          radius: 130,
-                                          backgroundColor:
-                                              kLilac.withOpacity(0.5),
-                                          child: CircleAvatar(
-                                            radius: 120.0,
-                                            backgroundImage: dp,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20.0),
-                                        child: GestureDetector(
-                                          onTap: () => uploadUserDiagnostics(),
-                                          child: Container(
-                                            height: 40,
-                                            width: 40,
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: kMauve),
-                                            child: const Icon(Icons.article,
-                                                color: kRussianViolet,
-                                                size: 30),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 30),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 10, bottom: 2),
-                                  child: Text(
-                                    "Hi,",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, bottom: 0),
-                                  child: Text(
-                                    userName.toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 45.0,
-                                        fontFamily: "Dancing Script",
-                                        fontWeight: FontWeight.w900),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    const Spacer(),
-                                    SizedBox(
-                                      height: 1,
-                                      width: 200,
-                                      child: WaveDivider(
-                                        color: Colors.white.withOpacity(0.7),
-                                      ),
-                                    ),
-                                    const Spacer()
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    height: 220,
-                                    width: 400,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        gradient: const LinearGradient(
-                                            begin: Alignment.bottomLeft,
-                                            end: Alignment.topRight,
-                                            colors: [
-                                              kRussianViolet,
-                                              kAfricanViolet
-                                            ])),
-                                    child: Column(
-                                      children: [
-                                        const Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10, bottom: 20),
-                                              child: Text(
-                                                "Profile Essence",
-                                                style: TextStyle(
-                                                    color: kMauve,
-                                                    fontSize: 12.0,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Spacer(),
+                                              CircleAvatar(
+                                                radius: 130,
+                                                backgroundColor:
+                                                    kLilac.withOpacity(0.5),
+                                                child: CircleAvatar(
+                                                  radius: 120.0,
+                                                  backgroundImage: dp,
+                                                ),
                                               ),
-                                            )),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10, left: 10),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.numbers,
-                                                  size: 20.0, color: kLilac),
-                                              const SizedBox(width: 10),
-                                              const Text("User ID: ",
-                                                  style: TextStyle(
-                                                      color: kMauve,
-                                                      fontSize: 15.0)),
-                                              Text(widget.userID,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.bold))
+                                              const Spacer(),
                                             ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10, left: 10),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.home_filled,
-                                                  size: 20.0, color: kLilac),
-                                              const SizedBox(width: 10),
-                                              const Text("Address: ",
-                                                  style: TextStyle(
-                                                      color: kMauve,
-                                                      fontSize: 15.0)),
-                                              Text(address.toString(),
-                                                  softWrap: true,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10, left: 10),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.article,
-                                                  size: 20.0, color: kLilac),
-                                              const SizedBox(width: 10),
-                                              const Text("Adhaar: ",
-                                                  style: TextStyle(
-                                                      color: kMauve,
-                                                      fontSize: 15.0)),
-                                              Text(adhaar.toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10, left: 10),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.bloodtype,
-                                                  size: 20.0, color: kLilac),
-                                              const SizedBox(width: 10),
-                                              const Text("BloodGroup: ",
-                                                  style: TextStyle(
-                                                      color: kMauve,
-                                                      fontSize: 15.0)),
-                                              Text(bloodgroup.toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10, left: 10),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.phone,
-                                                  size: 20.0, color: kLilac),
-                                              const SizedBox(width: 10),
-                                              const Text("Phone Number: ",
-                                                  style: TextStyle(
-                                                      color: kMauve,
-                                                      fontSize: 15.0)),
-                                              Text(phoneNumber.toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 21),
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    width: 500,
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        gradient: const LinearGradient(
-                                            colors: [kLilac, kAfricanViolet])),
-                                    child: Column(
-                                      children: [
-                                        const Align(
-                                            alignment: Alignment.topCenter,
+                                          Align(
+                                            alignment: Alignment.bottomRight,
                                             child: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: Text("All Orders",
-                                                  style: TextStyle(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20.0),
+                                              child: GestureDetector(
+                                                onTap: () =>
+                                                    uploadUserDiagnostics(),
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 40,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: kMauve),
+                                                  child: const Icon(
+                                                      Icons.article,
                                                       color: kRussianViolet,
-                                                      fontSize: 17.0,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 15.0,
-                                              right: 15.0,
-                                              bottom: 10.0),
-                                          child: Row(
+                                                      size: 30),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 30),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 10, bottom: 2),
+                                        child: Text(
+                                          "Hi,",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, bottom: 0),
+                                        child: Text(
+                                          userName.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 45.0,
+                                              fontFamily: "Dancing Script",
+                                              fontWeight: FontWeight.w900),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Spacer(),
+                                          SizedBox(
+                                            height: 1,
+                                            width: 200,
+                                            child: WaveDivider(
+                                              color:
+                                                  Colors.white.withOpacity(0.7),
+                                            ),
+                                          ),
+                                          const Spacer()
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                          height: 220,
+                                          width: 400,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              gradient: const LinearGradient(
+                                                  begin: Alignment.bottomLeft,
+                                                  end: Alignment.topRight,
+                                                  colors: [
+                                                    kRussianViolet,
+                                                    kAfricanViolet
+                                                  ])),
+                                          child: Column(
                                             children: [
-                                              Text("Hospital ID",
-                                                  style: TextStyle(
-                                                      color: Colors.black)),
-                                              Spacer(),
-                                              Text("Status",
-                                                  style: TextStyle(
-                                                      color: Colors.black))
+                                              const Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 10, bottom: 20),
+                                                    child: Text(
+                                                      "Profile Essence",
+                                                      style: TextStyle(
+                                                          color: kMauve,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                  )),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10, left: 10),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(Icons.numbers,
+                                                        size: 20.0,
+                                                        color: kLilac),
+                                                    const SizedBox(width: 10),
+                                                    const Text("User ID: ",
+                                                        style: TextStyle(
+                                                            color: kMauve,
+                                                            fontSize: 15.0)),
+                                                    Text(widget.userID,
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10, left: 10),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(
+                                                        Icons.home_filled,
+                                                        size: 20.0,
+                                                        color: kLilac),
+                                                    const SizedBox(width: 10),
+                                                    const Text("Address: ",
+                                                        style: TextStyle(
+                                                            color: kMauve,
+                                                            fontSize: 15.0)),
+                                                    Text(address.toString(),
+                                                        softWrap: true,
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10, left: 10),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(Icons.article,
+                                                        size: 20.0,
+                                                        color: kLilac),
+                                                    const SizedBox(width: 10),
+                                                    const Text("Adhaar: ",
+                                                        style: TextStyle(
+                                                            color: kMauve,
+                                                            fontSize: 15.0)),
+                                                    Text(adhaar.toString(),
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10, left: 10),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(Icons.bloodtype,
+                                                        size: 20.0,
+                                                        color: kLilac),
+                                                    const SizedBox(width: 10),
+                                                    const Text("BloodGroup: ",
+                                                        style: TextStyle(
+                                                            color: kMauve,
+                                                            fontSize: 15.0)),
+                                                    Text(bloodgroup.toString(),
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10, left: 10),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(Icons.phone,
+                                                        size: 20.0,
+                                                        color: kLilac),
+                                                    const SizedBox(width: 10),
+                                                    const Text("Phone Number: ",
+                                                        style: TextStyle(
+                                                            color: kMauve,
+                                                            fontSize: 15.0)),
+                                                    Text(phoneNumber.toString(),
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        allOrdersTable
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
-                          } else {
-                            if (snapshot.hasError &&
-                                snapshot.connectionState ==
-                                    ConnectionState.done) {
-                              return const Center(
-                                  child: Text(
-                                "Error loading user data!",
-                                style: TextStyle(color: Colors.white),
-                              ));
-                            } else {
-                              return const Center(
-                                  child: ShimmerContainer(
-                                      height: 700, width: double.infinity));
-                            }
-                          }
-                        }),
-                  )
-                ],
+                                      ),
+                                      const SizedBox(height: 21),
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Container(
+                                          width: 500,
+                                          height: 180,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              gradient: const LinearGradient(
+                                                  colors: [
+                                                    kLilac,
+                                                    kAfricanViolet
+                                                  ])),
+                                          child: ScrollConfiguration(
+                                            behavior:
+                                                ScrollConfiguration.of(context)
+                                                    .copyWith(
+                                                        scrollbars: false),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  const Align(
+                                                      alignment:
+                                                          Alignment.topCenter,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                            "All Orders",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kRussianViolet,
+                                                                fontSize: 17.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      )),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 15.0,
+                                                        right: 15.0,
+                                                        bottom: 10.0),
+                                                    child: Row(
+                                                      children: [
+                                                        Text("Hospital ID",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black)),
+                                                        Spacer(),
+                                                        Text("Status",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  allOrdersTable
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  if (snapshot.hasError &&
+                                      snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                    return const Center(
+                                        child: Text(
+                                      "Error loading user data!",
+                                      style: TextStyle(color: Colors.white),
+                                    ));
+                                  } else {
+                                    return const Center(
+                                        child: ShimmerContainer(
+                                            height: 700,
+                                            width: double.infinity));
+                                  }
+                                }
+                              }),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             const SizedBox(width: 10),
