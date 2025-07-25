@@ -8,6 +8,7 @@
 <br>
 <p float="left">
 <h2>User Side</h2>
+ <blockquote>❗It could take a while for the image to load.</blockquote>
 <img src="Images/main_sr.gif" alt="Main Page">
 <h2>Admin Side</h2>
 <img src="Images/admin_sr.gif" alt="Book page", width=350>
